@@ -20,39 +20,16 @@
             android:textColor="#840101"
             android:gravity="center"/>
     </android.support.v7.widget.Toolbar>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/my"
-        android:text="Enter the category"
-        android:fontFamily="@font/alegreya_sans"
-        android:textSize="30sp"
-        android:id="@+id/txt"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt"
-        android:fontFamily="@font/alegreya_sans"
-        android:textSize="20sp"
-        android:id="@+id/cat"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cat"
-        android:textSize="20sp"
-        android:id="@+id/lat"
-        android:fontFamily="@font/alegreya_sans"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lat">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="monospace"
-        android:textSize="15sp"
-        android:id="@+id/result"
-        android:maxLines="100000"/>
+        android:layout_below="@id/my">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="monospace"
+            android:textSize="15sp"
+            android:id="@+id/result"
+            android:maxLines="10000"/>
     </ScrollView>
-
 </RelativeLayout>
