@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     GoogleApiClient mGoogleApiClient;
     LocationRequest mRequest;
     EditText e;
+    HttpsGetter h = new HttpsGetter();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (loc != null) {
             lat = loc.getLatitude();
             lon = loc.getLongitude();
-            updateUI();
+            String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(lat)+","+String.valueOf(lon)+"&radius=5000&type=restaurant&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
+            String res = String.valueOf(new HttpsGetter().execute(s));
+            result(res);
         }
     }
 
@@ -86,10 +89,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (loc != null) {
             lat = loc.getLatitude();
             lon = loc.getLongitude();
-            updateUI();
             String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(lat)+","+String.valueOf(lon)+"&radius=5000&type=restaurant&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
-            String res = new HttpsGetter().connCall(s);
-            this.result(res);
+            String res = String.valueOf(new HttpsGetter().execute(s));
+            result(res);
         }
     }
 
@@ -114,12 +116,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         buildGoogleapiclient();
     }
-
-    public void updateUI() {
-        TextView t = (TextView) findViewById(R.id.lat);
-        t.setText("Latitude is" + String.valueOf(lat) + "\n" + "Longitude is" + String.valueOf(lon));
-    }
-
     public void result(String s){
         TextView t = (TextView)findViewById(R.id.result);
         t.setText(s);
