@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -66,9 +67,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (loc != null) {
             lat = loc.getLatitude();
             lon = loc.getLongitude();
-            String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(lat)+","+String.valueOf(lon)+"&radius=5000&type=restaurant&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
-            String res = String.valueOf(new HttpsGetter().execute(s));
-            result(res);
         }
     }
 
@@ -90,8 +88,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             lat = loc.getLatitude();
             lon = loc.getLongitude();
             String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(lat)+","+String.valueOf(lon)+"&radius=5000&type=restaurant&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
-            String res = String.valueOf(new HttpsGetter().execute(s));
-            result(res);
+            try {
+                result(new HttpsGetter().execute(s).get());
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            } catch (ExecutionException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
