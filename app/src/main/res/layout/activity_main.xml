@@ -20,16 +20,26 @@
             android:textColor="#840101"
             android:gravity="center"/>
     </android.support.v7.widget.Toolbar>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/my"
+        android:id="@+id/spin"
+        android:entries="@array/category"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/my">
+        android:layout_height="400dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spin">
+
         <TextView
+            android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="monospace"
-            android:textSize="15sp"
-            android:id="@+id/result"
-            android:maxLines="10000"/>
+            android:maxLines="10000"
+            android:textSize="15sp" />
     </ScrollView>
 </RelativeLayout>

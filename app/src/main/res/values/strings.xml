@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">Reviewuoso</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="category">
+        <item>ATM</item>
+        <item>Bakery</item>
+        <item>Bank</item>
+        <item>Bar</item>
+        <item>Beauty Salon</item>
+        <item>Book Store</item>
+        <item>Cafe</item>
+        <item>Clothing Store</item>
+        <item>Departmental Store</item>
+        <item>Electronics Store</item>
+        <item>Fuel Station</item>
+        <item>Hospital</item>
+        <item>Library</item>
+        <item>Pharmacy</item>
+        <item>Restaurant</item>
+        <item>School</item>
+        <item>Shoe Store</item>
+        <item>Shopping Mall</item>
+        <item>Super Market</item>
+    </string-array>
 </resources>
