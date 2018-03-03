@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sai_h.reviewuoso.SplashScreen">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bg"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sai_h.reviewuoso">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,6 +29,11 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCNEMH9AbVgeZOmcxUwEh2RWWGYPKUkPJc" />
+        <!-- To solve dependency version issues -->
+        <meta-data
+            tools:replace="android:value"
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
 
         <activity android:name=".SplashScreen">
             <intent-filter>

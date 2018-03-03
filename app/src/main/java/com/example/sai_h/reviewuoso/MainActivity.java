@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,9 +20,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,com.google.android.gms.location.LocationListener,AdapterView.OnItemSelectedListener{
     double lat, lon;
@@ -28,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     GoogleApiClient mGoogleApiClient;
     LocationRequest mRequest;
     Spinner sp;
-    JSONObject json;
+    RecyclerView r;
     String[] category = new String[]{"atm","bakery","bank","bar","beauty_salon","book_store","cafe","clothing_store","department_store","electronics_store","gas_station","hospital","library","pharmacy","restaurant","school","shoe_store","shopping_mall","supermarket"};
 
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         sp = (Spinner)findViewById(R.id.spin);
         sp.setOnItemSelectedListener(this);
+        r = (RecyclerView) findViewById(R.id.recycle);
+        r.setLayoutManager(new LinearLayoutManager(this));
     }
 
     synchronized void buildGoogleapiclient() {
@@ -107,9 +114,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleapiclient();
     }
     public void result(String s){
-        TextView t = (TextView)findViewById(R.id.result);
-        System.out.println(s);
-        t.setText(s);
+
     }
 
     @Override
@@ -118,12 +123,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Log.i("Pos",String.valueOf(i));
         String cat = category[i1];
         String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(lat)+","+String.valueOf(lon)+"&radius=5000&type="+cat+"&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
+        List<Placeresult> places;
+        places = new ArrayList<>();
         try {
-            result(new HttpsGetter().execute(s).get());
-        } catch (InterruptedException e1) {
+            JSONObject json = new JSONObject(new HttpsGetter().execute(s).get());
+            JSONArray jarr1 = json.getJSONArray("results");
+            System.out.println(lat+"\n"+lon);
+            System.out.println(jarr1.getJSONObject(0).getString("rating"));
+            int it =0;
+            for(it=0;it<jarr1.length();it++){
+                JSONObject j2 = jarr1.getJSONObject(it);
+                if(jarr1.getJSONObject(it).has("rating")&&jarr1.getJSONObject(it).getDouble("rating")>3.0)
+                    places.add(new Placeresult("Rating:"+jarr1.getJSONObject(it).getString("rating"),jarr1.getJSONObject(it).getString("name"),jarr1.getJSONObject(it).getString("vicinity")));
+            }
+            PlaceAdapter p = new PlaceAdapter(this,places);
+            r.setAdapter(p);
+        } catch (JSONException e1) {
             e1.printStackTrace();
-        } catch (ExecutionException e1) {
-            e1.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 
