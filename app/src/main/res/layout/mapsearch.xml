@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mapsearch">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/alegreya_sans"
+            android:id="@+id/title" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/title"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:id="@+id/addr"
+            android:fontFamily="@font/alegreya_sans"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addr"
+            android:layout_margin="10dp"
+            android:textSize="15dp"
+            android:fontFamily="@font/alegreya_sans"
+            android:id="@+id/rating"/>
+    </RelativeLayout>

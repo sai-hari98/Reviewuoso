@@ -28,7 +28,7 @@
         <!-- Map Meta Data -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCNEMH9AbVgeZOmcxUwEh2RWWGYPKUkPJc" />
+            android:value="AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk" />
         <!-- To solve dependency version issues -->
         <meta-data
             tools:replace="android:value"
