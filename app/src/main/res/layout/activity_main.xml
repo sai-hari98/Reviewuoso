@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/drawer">
-<FrameLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sai_h.reviewuoso.MainActivity">
@@ -23,7 +23,7 @@
             android:text="Reviewouso"
             android:textSize="30sp"
             android:textColor="#840101"
-            android:gravity="center"/>
+            android:layout_centerHorizontal="true"/>
     </android.support.v7.widget.Toolbar>
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
@@ -38,12 +38,13 @@
             android:layout_height="fill_parent"
             android:id="@+id/viewpg">
         </android.support.v4.view.ViewPager>
-</FrameLayout>
+</RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/navview"
         android:fitsSystemWindows="true"
         app:menu="@menu/nav"
-        app:headerLayout="@layout/nav_header"/>
+        app:headerLayout="@layout/nav_header"
+        android:layout_gravity="start"/>
 </android.support.v4.widget.DrawerLayout>

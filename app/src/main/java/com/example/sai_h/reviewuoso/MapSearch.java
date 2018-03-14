@@ -33,6 +33,7 @@ import java.util.Locale;
 public class MapSearch extends Fragment{
     SupportPlaceAutocompleteFragment autocompleteFragment;
     TextView[] t = new TextView[3];
+    View f;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class MapSearch extends Fragment{
         autocompleteFragment = new SupportPlaceAutocompleteFragment();
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        f = v.findViewById(R.id.placeauto);
         ft.replace(R.id.placeauto,autocompleteFragment);
         ft.commit();
         return v;
@@ -57,6 +59,12 @@ public class MapSearch extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Geocoder gcd = new Geocoder(getContext(), Locale.getDefault());
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autocompleteFragment.getView().setVisibility(View.GONE);
+            }
+        });
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {

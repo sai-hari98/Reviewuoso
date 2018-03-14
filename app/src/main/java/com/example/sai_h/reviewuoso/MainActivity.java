@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         android.support.v7.widget.Toolbar t1 = findViewById(R.id.my);
         setSupportActionBar(t1);
+        NavigationView n = (NavigationView)findViewById(R.id.navview);
+        n.setItemIconTintList(null);
         android.support.v7.app.ActionBar a = getSupportActionBar();
         a.setDisplayHomeAsUpEnabled(true);
         a.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.home: d.openDrawer(GravityCompat.START);
+            case android.R.id.home: d.openDrawer(GravityCompat.START);
                             return true;
         }
         return super.onOptionsItemSelected(item);
