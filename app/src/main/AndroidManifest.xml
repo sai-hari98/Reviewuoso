@@ -17,11 +17,6 @@
         android:roundIcon="@drawable/rlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|stateVisible"> <!-- for not shrinking the background image when keyboard pops up -->
-        </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -42,6 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainAct"
+            android:windowSoftInputMode="adjustPan|stateVisible"></activity>
     </application>
 
 </manifest>

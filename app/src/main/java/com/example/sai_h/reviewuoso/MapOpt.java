@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 public class MapOpt extends Fragment{
     Spinner sp;
     RecyclerView r;
+    LatLng ll;
     String[] category = new String[]{"atm","bakery","bank","bar","beauty_salon","book_store","cafe","clothing_store","department_store","electronics_store","gas_station","hospital","library","pharmacy","restaurant","school","shoe_store","shopping_mall","supermarket"};
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class MapOpt extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
         View rootview = inflater.inflate(R.layout.mapopt,container,false);
+        ll = new LatLng(getContext(),getActivity());
+        ll.execute();
         r = (RecyclerView)rootview.findViewById(R.id.recycle);
         sp = (Spinner)rootview.findViewById(R.id.spin);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
@@ -51,14 +54,13 @@ public class MapOpt extends Fragment{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int i1 = sp.getSelectedItemPosition();
                 String cat = category[i1];
-                MainActivity m = new MainActivity();
-                String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(m.lat)+","+String.valueOf(m.lon)+"&radius=5000&type="+cat+"&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
+                String s = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(ll.lat)+","+String.valueOf(ll.lon)+"&radius=5000&type="+cat+"&key=AIzaSyBx77XwaQLYdMOqqlb3n3x6-talZWLhyjk";
                 List<Placeresult> places;
                 places = new ArrayList<>();
                 try {
                     JSONObject json = new JSONObject(new HttpsGetter().execute(s).get());
                     JSONArray jarr1 = json.getJSONArray("results");
-                    System.out.println(m.lat+"\n"+m.lon);
+                    System.out.println(ll.lat+"\n"+ll.lon);
                     System.out.println(jarr1.getJSONObject(0).getString("rating"));
                     int it =0;
                     for(it=0;it<jarr1.length();it++){
