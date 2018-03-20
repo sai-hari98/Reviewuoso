@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by sai_h on 05-03-2018.
@@ -58,7 +69,7 @@ public class MapOpt extends Fragment{
                 List<Placeresult> places;
                 places = new ArrayList<>();
                 try {
-                    JSONObject json = new JSONObject(new HttpsGetter().execute(s).get());
+                    JSONObject json = new JSONObject(this.doInBackground(s));
                     JSONArray jarr1 = json.getJSONArray("results");
                     System.out.println(ll.lat+"\n"+ll.lon);
                     System.out.println(jarr1.getJSONObject(0).getString("rating"));
@@ -86,5 +97,41 @@ public class MapOpt extends Fragment{
             }
         });
 
+    }
+    protected String doInBackground(String... urls) {
+        String html = null;
+        Log.e("Entry","Entered");
+        URL url = null;
+        try {
+            url = new URL(urls[0]);
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            html = convertToString(in);
+        } catch (MalformedURLException e) {
+            Log.i("MExeception","err");
+        }
+        catch(ProtocolException p){
+            Log.i("PExeception","err");
+        }
+        catch(IOException i){
+            Log.i("IOExeception","err");
+        }
+        return html;
+    }
+    public String convertToString(InputStream in){
+        StringBuilder sb = new StringBuilder();
+        try {
+            BufferedReader b = new BufferedReader(new InputStreamReader(in));
+            String line;
+            while ((line = b.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            b.close();
+        }
+        catch(Exception e){
+            Log.i("Convstr","String conversion error");
+        }
+        return sb.toString();
     }
 }

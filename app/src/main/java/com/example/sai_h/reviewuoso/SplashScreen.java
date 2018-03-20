@@ -16,9 +16,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        ImageView i = (ImageView)findViewById(R.id.logo);
-        Animation a = AnimationUtils.loadAnimation(this,R.anim.fadein);
-        i.startAnimation(a);
+        findViewById(R.id.logo).startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadein));
         new LatLng(SplashScreen.this,this).execute();
         if (ActivityCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
@@ -30,8 +28,7 @@ public class SplashScreen extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    Intent in = new Intent(getApplicationContext(),MainAct.class);
-                    startActivity(in);
+                    startActivity(new Intent(getApplicationContext(),MainAct.class));
                     finish();
                 }
             }

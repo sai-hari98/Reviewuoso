@@ -38,7 +38,7 @@ public class MainActivity extends Fragment {
     }
 
     class PagerAdapter extends FragmentPagerAdapter{
-        String tabTitles[] = new String[] {"Nearby Search", "Custom Search"};
+        String tabTitles[] = new String[] {"Custom Search", "Nearby Search"};
         Context con;
         public PagerAdapter(FragmentManager fm, Context context) {
             super(fm);
@@ -48,8 +48,8 @@ public class MainActivity extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch(position){
-                case 0: return new MapOpt();
-                case 1: return new MapSearch();
+                case 0: return new MapSearch();
+                case 1: return new MapOpt();
             }
             return null;
         }
