@@ -2,7 +2,6 @@ package com.example.sai_h.reviewuoso;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -16,10 +15,30 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by sai_h on 27-02-2018.
+ * Created by sai_h on 20-03-2018.
  */
 
 public class HttpsGetter extends AsyncTask<String,Void,String>{
+    public String doInBackground(String...s) {
+        String html = null;
+        Log.e("Entry","Entered");
+        try {
+            URL url = new URL(s[0]);
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            html = this.convertToString(in);
+        } catch (MalformedURLException e) {
+            Log.i("MExeception","err");
+        }
+        catch(ProtocolException p){
+            Log.i("PExeception","err");
+        }
+        catch(IOException i){
+            Log.i("IOExeception","err");
+        }
+        return html;
+    }
     public String convertToString(InputStream in){
         StringBuilder sb = new StringBuilder();
         try {
@@ -34,33 +53,5 @@ public class HttpsGetter extends AsyncTask<String,Void,String>{
             Log.i("Convstr","String conversion error");
         }
         return sb.toString();
-    }
-
-    @Override
-    protected String doInBackground(String... urls) {
-        String html = null;
-        Log.e("Entry","Entered");
-        URL url = null;
-        try {
-            url = new URL(urls[0]);
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            html = convertToString(in);
-        } catch (MalformedURLException e) {
-            Log.i("MExeception","err");
-        }
-        catch(ProtocolException p){
-            Log.i("PExeception","err");
-        }
-        catch(IOException i){
-            Log.i("IOExeception","err");
-        }
-        return html;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
     }
 }

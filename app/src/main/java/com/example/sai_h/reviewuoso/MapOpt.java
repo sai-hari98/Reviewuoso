@@ -69,7 +69,9 @@ public class MapOpt extends Fragment{
                 List<Placeresult> places;
                 places = new ArrayList<>();
                 try {
-                    JSONObject json = new JSONObject(this.doInBackground(s));
+                    HttpsGetter h = new HttpsGetter();
+                    JSONObject json = new JSONObject(h.execute(s).get());
+                    h.cancel(true);
                     JSONArray jarr1 = json.getJSONArray("results");
                     System.out.println(ll.lat+"\n"+ll.lon);
                     System.out.println(jarr1.getJSONObject(0).getString("rating"));
@@ -97,41 +99,5 @@ public class MapOpt extends Fragment{
             }
         });
 
-    }
-    protected String doInBackground(String... urls) {
-        String html = null;
-        Log.e("Entry","Entered");
-        URL url = null;
-        try {
-            url = new URL(urls[0]);
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            html = convertToString(in);
-        } catch (MalformedURLException e) {
-            Log.i("MExeception","err");
-        }
-        catch(ProtocolException p){
-            Log.i("PExeception","err");
-        }
-        catch(IOException i){
-            Log.i("IOExeception","err");
-        }
-        return html;
-    }
-    public String convertToString(InputStream in){
-        StringBuilder sb = new StringBuilder();
-        try {
-            BufferedReader b = new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line = b.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-            b.close();
-        }
-        catch(Exception e){
-            Log.i("Convstr","String conversion error");
-        }
-        return sb.toString();
     }
 }

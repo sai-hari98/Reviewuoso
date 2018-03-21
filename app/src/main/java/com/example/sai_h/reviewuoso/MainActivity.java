@@ -15,11 +15,13 @@ public class MainActivity extends Fragment {
     ViewPager vp;
     PagerAdapter pa;
     TabLayout tl;
-
+    MapSearch ms = new MapSearch();
+    MapOpt mo = new MapOpt();
+    View v;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.activity_main, container, false);
+            v = inflater.inflate(R.layout.activity_main, container, false);
             vp = (ViewPager) v.findViewById(R.id.viewpg);
             pa = new PagerAdapter(getChildFragmentManager(), getContext());
             vp.setAdapter(pa);
@@ -48,8 +50,8 @@ public class MainActivity extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch(position){
-                case 0: return new MapSearch();
-                case 1: return new MapOpt();
+                case 0: return ms;
+                case 1: return mo;
             }
             return null;
         }
